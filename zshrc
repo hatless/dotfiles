@@ -53,8 +53,13 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X1
 export EDITOR=vim
 export VISUAL=vim
 
-alias mux=tmuxinator
+export GOPATH=~/Development/gocode
+export PATH=$GOPATH/bin:$PATH
 
+alias mux=tmuxinator
+alias ncr="cd ~/Development/novus-chef-repo"
+alias d=cd "~/Development"
+source ~/.aliases
 
 ulimit -S -n 2048
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

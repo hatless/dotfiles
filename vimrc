@@ -21,6 +21,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
+Bundle 'rking/ag.vim'
 Bundle 'airblade/vim-gitgutter'
 " vim-scripts repos
 Bundle 'L9'
