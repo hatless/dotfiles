@@ -30,6 +30,8 @@ Bundle 'FuzzyFinder'
 Bundle 'chef.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'raymond-w-ko/rainbow_parentheses.vim'
+Bundle 'amix/vim-2048'
+Bundle 'mattn/mahjong-vim'
 
 filetype plugin indent on     " required!
 

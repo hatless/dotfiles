@@ -43,8 +43,13 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(dircycle dirpersist extract colored-man brew themes git ruby osx jira sbt scala knife knife_ssh sublime tmux screen gem dircycle gnu-utils vagrant rbenv rake python \
-  rails tmuxinator bundler git-remote-branch git-extras terminator profiles battery web-search extract urltools websearch)
+plugins=(dircycle dirpersist extract colored-man brew themes git ruby osx jira sbt scala knife knife_ssh \
+				sublime tmux screen gem dircycle gnu-utils go go-lang supervisor vagrant rbenv rake python pip \
+  			rails rake tmuxinator bundler gitignore git-remote-branch git-extras github terminator profiles sudo \
+				npm extract encode64 cp copydir copyfile nyan systemd terminalapp themes thor \
+				common-aliases command-not-found jsontools postgres \
+				vim-interaction vundle systemadmin zsh_reload repo debian atom autoenv autojump colorize colored-man \
+				battery web-search extract urltools websearch docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -56,6 +61,8 @@ export VISUAL=vim
 export GOPATH=~/Development/gocode
 export PATH=$GOPATH/bin:$PATH
 
+export PATH=~/bin:$PATH
+
 alias mux=tmuxinator
 alias ncr="cd ~/Development/novus-chef-repo"
 alias d=cd "~/Development"
@@ -65,4 +72,8 @@ ulimit -S -n 2048
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home"
 export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
+source $(brew --prefix nvm)/nvm.sh
+JIRA_RAPID_BOARD="true"
+
