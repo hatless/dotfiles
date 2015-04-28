@@ -43,13 +43,13 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(dircycle dirpersist extract colored-man brew themes git ruby osx jira sbt scala knife knife_ssh \
+plugins=(dircycle dirpersist extract colored-man brew brew-cask themes git ruby osx jira sbt scala knife knife_ssh \
 				sublime tmux screen gem dircycle gnu-utils go go-lang supervisor vagrant rbenv rake python pip \
   			rails rake tmuxinator bundler gitignore git-remote-branch git-extras github terminator profiles sudo \
 				npm extract encode64 cp copydir copyfile nyan systemd terminalapp themes thor \
-				common-aliases command-not-found jsontools postgres \
-				vim-interaction vundle systemadmin zsh_reload repo debian atom autoenv autojump colorize colored-man \
-				battery web-search extract urltools websearch docker)
+				common-aliases command-not-found jsontools postgres jsontools mosh\
+				vim-interaction vundle systemadmin zsh_reload repo atom autojump colorize colored-man \
+				battery web-search extract urltools websearch docker ubuntu bgnotify zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -66,6 +66,7 @@ export PATH=~/bin:$PATH
 alias mux=tmuxinator
 alias ncr="cd ~/Development/novus-chef-repo"
 alias d=cd "~/Development"
+alias escape_returns="/usr/bin/env ruby -e 'p ARGF.read'"
 source ~/.aliases
 
 ulimit -S -n 2048
@@ -76,4 +77,6 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Hom
 export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
 source $(brew --prefix nvm)/nvm.sh
 JIRA_RAPID_BOARD="true"
+
+eval "$(chef shell-init zsh)"
 
