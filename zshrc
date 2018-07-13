@@ -1,18 +1,5 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="jreese"
-ZSH_THEME="tjkirch"
-
-eval "$(rbenv init -)"
-
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -40,19 +27,6 @@ COMPLETION_WAITING_DOTS="true"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(dircycle dirpersist extract colored-man brew brew-cask themes git ruby osx jira sbt scala knife knife_ssh \
-				sublime tmux screen gem dircycle gnu-utils go go-lang supervisor vagrant rbenv rake python pip \
-  			rails rake tmuxinator bundler gitignore git-remote-branch git-extras github terminator profiles sudo \
-				npm extract encode64 cp copydir copyfile nyan systemd terminalapp themes thor \
-				common-aliases command-not-found jsontools postgres jsontools mosh\
-				vim-interaction vundle systemadmin zsh_reload repo atom autojump colorize colored-man \
-				battery web-search extract urltools websearch docker ubuntu bgnotify zsh_reload)
-
-source $ZSH/oh-my-zsh.sh
-
 # Customize to your needs...
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/kms/bin:$PATH
 export EDITOR=vim
@@ -64,19 +38,10 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=~/bin:$PATH
 
 alias mux=tmuxinator
-alias ncr="cd ~/Development/novus-chef-repo"
-alias d=cd "~/Development"
 alias escape_returns="/usr/bin/env ruby -e 'p ARGF.read'"
-source ~/.aliases
+[ -f ~/.aliases ] && source ~/.aliases
 
 ulimit -S -n 2048
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-source $(brew --prefix nvm)/nvm.sh
-JIRA_RAPID_BOARD="true"
-
-eval "$(chef shell-init zsh)"
 

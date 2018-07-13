@@ -39,14 +39,5 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 ulimit -S -n 2048
 export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
-export JAVA_OPTS="-Xmx5g -Xms5g -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms512m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC ${JAVA_OPTS}"
+
 source $(brew --prefix nvm)/nvm.sh

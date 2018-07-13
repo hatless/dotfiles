@@ -1,47 +1,22 @@
-" VUNDLE STUFF
-
 set nocompatible
-filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/plugged')
 " My Bundles here:
-Bundle 'ctrlp.vim'
-Bundle 'Highlight-UnMatched-Brackets'
-Bundle 'The-NERD-tree'
-Bundle 'The-NERD-Commenter'
-"
-" original repos on github
-Bundle 'ack.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'rking/ag.vim'
-Bundle 'airblade/vim-gitgutter'
-" vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-" non github repos
-Bundle 'chef.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'raymond-w-ko/rainbow_parentheses.vim'
-Bundle 'amix/vim-2048'
-Bundle 'mattn/mahjong-vim'
+Plug 'vim-scripts/ctrlp.vim'
+Plug 'vim-scripts/Highlight-UnMatched-Brackets'
+Plug 'vim-scripts/The-NERD-tree'
+Plug 'vim-scripts/The-NERD-Commenter'
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/FuzzyFinder'
 
 filetype plugin indent on     " required!
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-" Make Vim more useful
-set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
