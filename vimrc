@@ -14,6 +14,7 @@ Plug 'vim-scripts/The-NERD-tree'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'vim-scripts/L9'
 Plug 'vim-scripts/FuzzyFinder'
+call plug#end()
 
 filetype plugin indent on     " required!
 

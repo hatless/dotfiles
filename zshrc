@@ -43,5 +43,8 @@ alias escape_returns="/usr/bin/env ruby -e 'p ARGF.read'"
 
 ulimit -S -n 2048
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fpath=(/usr/local/share/zsh-completions $fpath)
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
