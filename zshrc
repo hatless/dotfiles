@@ -1,50 +1,61 @@
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd beep extendedglob nomatch notify
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '~/.zshrc'
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+alias vlj='curl -X POST  -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/pipeline-model-converter/validate'
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
 
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/kms/bin:$PATH
-export EDITOR=vim
-export VISUAL=vim
-
-export GOPATH=~/Development/gocode
-export PATH=$GOPATH/bin:$PATH
-
-export PATH=~/bin:$PATH
-
-alias mux=tmuxinator
-alias escape_returns="/usr/bin/env ruby -e 'p ARGF.read'"
-[ -f ~/.aliases ] && source ~/.aliases
-
-ulimit -S -n 2048
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath=(/usr/local/share/zsh-completions $fpath)
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+export ZPLUG_HOME=/usr/local/opt/zplug 
+source $ZPLUG_HOME/init.zsh
+
+zplug "plugins/git",   from:oh-my-zsh
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug 'chrissicool/zsh-256color', from:github
+zplug 'qianxinfeng/zsh-vscode', from:github
+zplug 'zpm-zsh/autoenv', from:github
+zplug "Dbz/zsh-kubernetes", from:github
+zplug "gerges/oh-my-zsh-jira-plus", from:github
+zplug 'tysonwolker/iterm-tab-colors', from:github
+zplug 'chrissicool/zsh-256color', from:github
+zplug "lukechilds/zsh-nvm"
+zplug 'ytet5uy4/pctl'
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+  export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+
+#export http_proxy="http://proxy.anbcge.nbcu.com:80"
+#export https_proxy="http://proxy.anbcge.nbcu.com:80"
+export PATH=$HOME/go/bin:$PATH
+export PATH="/usr/local/sbin:$PATH"
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
