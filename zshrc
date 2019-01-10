@@ -33,6 +33,8 @@ zplug 'tysonwolker/iterm-tab-colors', from:github
 zplug 'chrissicool/zsh-256color', from:github
 zplug "lukechilds/zsh-nvm"
 zplug 'ytet5uy4/pctl'
+zplug 'skx/sysadmin-util', from:github
+zplug "djui/alias-tips"
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
