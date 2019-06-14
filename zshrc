@@ -23,7 +23,12 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug "plugins/git",   from:oh-my-zsh
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug "plugins/aws",   from:oh-my-zsh
+zplug "plugins/brew",   from:oh-my-zsh
+zplug "plugins/docker",   from:oh-my-zsh
+zplug "plugins/vagrant",   from:oh-my-zsh
+zplug "plugins/wd",   from:oh-my-zsh
+zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
 zplug 'chrissicool/zsh-256color', from:github
 zplug 'qianxinfeng/zsh-vscode', from:github
 zplug 'zpm-zsh/autoenv', from:github
@@ -63,4 +68,9 @@ alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -set
 export PATH=$HOME/go/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 source "$HOME/.sdkman/bin/sdkman-init.sh"
+test -e "eksctl" && source <(eksctl completion zsh)
+test -e "svcat" && source <(svcat completion zsh)
 export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
+test -e "jx" && source <(jx completion zsh)
+fpath=($fpath ~/.zsh/completion)
+
