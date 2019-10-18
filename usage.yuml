@@ -1,0 +1,14 @@
+// {type: activity}
+
+(start)->(Find a zsh plugin)
+(Find a zsh plugin)[Add to dotfiles/zshrc]->(Open new shell)
+(Open new shell)[Works]->(Commit)->|a|
+(Open new shell)[Failed]->(Debug)
+|a|->(Find a zsh plugin)
+(Debug)->(Open new shell)
+(Debug)->(Give up)
+(Give up)->(git reset)
+|a|->(Push)
+(Push)->(end)
+(git reset)->(end)
+
