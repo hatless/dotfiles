@@ -16,12 +16,18 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if $(uname -a | grep linux); then
+				export BREWBASE=/usr/local
+else
+				export BREWBASE=~/.linuxbrew
+fi
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fpath=(/usr/local/share/zsh-completions $fpath)
+source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-export ZPLUG_HOME=/usr/local/opt/zplug 
+source ${BREWBASE}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fpath=(${BREWBASE}/share/zsh-completions $fpath)
+
+export ZPLUG_HOME=${BREWBASE}/opt/zplug 
 source $ZPLUG_HOME/init.zsh
 
 zplug "plugins/git",   from:oh-my-zsh
@@ -72,7 +78,7 @@ test -e "lsd" && alias ls='lsd'
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
 export PATH=$HOME/go/bin:$PATH
-export PATH="/usr/local/sbin:$PATH"
+export PATH="${BREWBASE}/sbin:$PATH"
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
 test -e "jx" && source <(jx completion zsh)
