@@ -17,9 +17,10 @@ compinit
 # End of lines added by compinstall
 
 if $(uname -a | grep linux); then
-				export BREWBASE=/usr/local
+    export BREWBASE=/usr/local
 else
-				export BREWBASE=~/.linuxbrew
+    export BREWBASE=~/.linuxbrew
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
 
 source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -27,17 +28,17 @@ source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ${BREWBASE}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath=(${BREWBASE}/share/zsh-completions $fpath)
 
-export ZPLUG_HOME=${BREWBASE}/opt/zplug 
+export ZPLUG_HOME=${BREWBASE}/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-zplug "plugins/git",   from:oh-my-zsh
-zplug "plugins/aws",   from:oh-my-zsh
-zplug "plugins/brew",   from:oh-my-zsh
-zplug "plugins/dircycle",   from:oh-my-zsh
-zplug "plugins/docker",   from:oh-my-zsh
-zplug "plugins/jira",   from:oh-my-zsh
-zplug "plugins/vagrant",   from:oh-my-zsh
-zplug "plugins/wd",   from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/aws", from:oh-my-zsh
+zplug "plugins/brew", from:oh-my-zsh
+zplug "plugins/dircycle", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/jira", from:oh-my-zsh
+zplug "plugins/vagrant", from:oh-my-zsh
+zplug "plugins/wd", from:oh-my-zsh
 zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
 zplug 'chrissicool/zsh-256color', from:github
 zplug 'qianxinfeng/zsh-vscode', from:github
@@ -57,17 +58,17 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
-        echo; zplug install
+        echo
+        zplug install
     fi
 fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
 
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export NVM_DIR="$HOME/.nvm" && . "/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
 
 alias jcli="java -jar ~/Downloads/jenkins-cli.jar -s http://localhost:8080"
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
@@ -79,7 +80,6 @@ test -e "lsd" && alias ls='lsd'
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
 export PATH=$HOME/go/bin:$PATH
 export PATH="${BREWBASE}/sbin:$PATH"
-source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
 test -e "jx" && source <(jx completion zsh)
 fpath=($fpath ~/.zsh/completion)
