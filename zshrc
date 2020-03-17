@@ -74,7 +74,6 @@ alias jcli="java -jar ~/Downloads/jenkins-cli.jar -s http://localhost:8080"
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
 alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -setairportnetwork en0 'NBCU_Corp'"
 
-test -e "lsd" && alias ls='lsd'
 
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
@@ -91,11 +90,33 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 kubeconfigs=(~/.kube/config*)
 export KUBECONFIG=$(echo $kubeconfigs | tr ' ' ':')
 
-test -e "eksctl" && source <(eksctl completion zsh)
-test -e "svcat" && source <(svcat completion zsh)
-test -e "helm" && source <(helm completion zsh)
+command -v "eksctl" > /dev/null && source <(eksctl completion zsh)
+command -v "lsd" > /dev/null && alias ls='lsd'
+command -v "svcat" > /dev/null && source <(svcat completion zsh)
+command -v "helm" > /dev/null && source <(helm completion zsh)
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc'; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+eval "$(pyenv init -)"
+set -k
+# To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
+# We recommend adding this to your .zshrc file
+autoload -U compinit && compinit
+autoload -U bashcompinit && bashcompinit
+_akamai_cli_bash_autocomplete() {
+    local cur opts base
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    opts=$( ${COMP_WORDS[@]:0:$COMP_CWORD} --generate-auto-complete )
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+}
+
+complete -F _akamai_cli_bash_autocomplete akamai
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
