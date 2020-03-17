@@ -16,11 +16,11 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-if $(uname -a | grep linux); then
+if [[ $(uname -a | grep Darwin) ]]; then
     export BREWBASE=/usr/local
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
 else
     export BREWBASE=~/.linuxbrew
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
 
 source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
