@@ -31,26 +31,29 @@ fpath=(${BREWBASE}/share/zsh-completions $fpath)
 export ZPLUG_HOME=${BREWBASE}/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-zplug "plugins/git", from:oh-my-zsh
+zplug 'chrissicool/zsh-256color', from:github
+zplug 'qianxinfeng/zsh-vscode', from:github
+zplug 'skx/sysadmin-util', from:github
+zplug 'tysonwolker/iterm-tab-colors', from:github
+zplug 'ytet5uy4/pctl'
+zplug 'zpm-zsh/autoenv', from:github
+zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
+zplug "Dbz/zsh-kubernetes", from:github
+zplug "djui/alias-tips"
+zplug "gerges/oh-my-zsh-jira-plus", from:github
+zplug "laggardkernel/zsh-thefuck", from:github
+zplug "lukechilds/zsh-nvm"
+zplug "pbar1/zsh-terraform"
+zplug "blimmer/zsh-aws-vault"
 zplug "plugins/aws", from:oh-my-zsh
 zplug "plugins/brew", from:oh-my-zsh
 zplug "plugins/dircycle", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/jira", from:oh-my-zsh
 zplug "plugins/vagrant", from:oh-my-zsh
 zplug "plugins/wd", from:oh-my-zsh
-zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
-zplug 'chrissicool/zsh-256color', from:github
-zplug 'qianxinfeng/zsh-vscode', from:github
-zplug 'zpm-zsh/autoenv', from:github
-zplug "Dbz/zsh-kubernetes", from:github
-zplug "gerges/oh-my-zsh-jira-plus", from:github
-zplug 'tysonwolker/iterm-tab-colors', from:github
-zplug 'chrissicool/zsh-256color', from:github
-zplug "lukechilds/zsh-nvm"
-zplug 'ytet5uy4/pctl'
-zplug 'skx/sysadmin-util', from:github
-zplug "djui/alias-tips"
+zplug "unixorn/tumult.plugin.zsh", from:github
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
@@ -74,6 +77,7 @@ alias jcli="java -jar ~/Downloads/jenkins-cli.jar -s http://localhost:8080"
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
 alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -setairportnetwork en0 'NBCU_Corp'"
 
+eval $(thefuck --alias)
 
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
@@ -86,6 +90,7 @@ fpath=($fpath ~/.zsh/completion)
 [ -f ~/.kube/ranchercli ] && export RANCHER_TOKEN=$(cat ~/.kube/ranchercli)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="/home/stevekoppelman/.linuxbrew/bin:$PATH"
 #export KUBECONFIG=~/.kube/config:~/.kube/config.dev-eks-cluster:~/.kube/config.dev-rancher:~/.kube/config.dev-nbcnewstools
 kubeconfigs=(~/.kube/config*)
 export KUBECONFIG=$(echo $kubeconfigs | tr ' ' ':')
