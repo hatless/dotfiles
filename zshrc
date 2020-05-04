@@ -37,6 +37,9 @@ zplug 'skx/sysadmin-util', from:github
 zplug 'tysonwolker/iterm-tab-colors', from:github
 zplug 'ytet5uy4/pctl'
 zplug 'zpm-zsh/autoenv', from:github
+zplug "zpm-zsh/colors"
+zplug "zpm-zsh/colorize"
+zplug "reegnz/jq-zsh-plugin"
 zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
 zplug "Dbz/zsh-kubernetes", from:github
 zplug "djui/alias-tips"
@@ -104,8 +107,11 @@ if [ -f '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc'; fi
+
+# pyenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 eval "$(pyenv init -)"
+
 set -k
 # To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
 # We recommend adding this to your .zshrc file
