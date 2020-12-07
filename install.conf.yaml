@@ -13,6 +13,7 @@
     ~/.byoburc: byoburc
     ~/.zshrc: zshrc
     ~/.bash_profile: bash_profile
+    ~/Brewfile: Brewfile
 
 
 - shell:

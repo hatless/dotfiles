@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+ZSH_DISABLE_COMPFIX="true"
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -8,9 +10,7 @@ setopt appendhistory autocd beep extendedglob nomatch notify
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '~/.zshrc'
-
-alias vlj='curl -X POST  -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/pipeline-model-converter/validate'
+zstyle :compinstall filename '/Users/a206588409/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -115,8 +115,6 @@ eval "$(pyenv init -)"
 set -k
 # To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
 # We recommend adding this to your .zshrc file
-autoload -U compinit && compinit
-autoload -U bashcompinit && bashcompinit
 _akamai_cli_bash_autocomplete() {
     local cur opts base
     COMPREPLY=()
@@ -131,3 +129,4 @@ complete -F _akamai_cli_bash_autocomplete akamai
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
