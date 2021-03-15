@@ -10,7 +10,7 @@ setopt appendhistory autocd beep extendedglob nomatch notify
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/a206588409/.zshrc'
+zstyle :compinstall filename "~/.zshrc"
 
 autoload -Uz compinit
 compinit
@@ -20,7 +20,7 @@ if [[ $(uname -a | grep Darwin) ]]; then
     export BREWBASE=/usr/local
     source "$HOME/.sdkman/bin/sdkman-init.sh"
 else
-    export BREWBASE=~/.linuxbrew
+    export BREWBASE=/home/linuxbrew/.linuxbrew
 fi
 
 source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -40,11 +40,11 @@ zplug 'zpm-zsh/autoenv', from:github
 zplug "zpm-zsh/colors"
 zplug "zpm-zsh/colorize"
 zplug "reegnz/jq-zsh-plugin"
-zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "Dbz/zsh-kubernetes", from:github
 zplug "djui/alias-tips"
 zplug "gerges/oh-my-zsh-jira-plus", from:github
-zplug "laggardkernel/zsh-thefuck", from:github
+# zplug "laggardkernel/zsh-thefuck", from:github
 zplug "lukechilds/zsh-nvm"
 zplug "pbar1/zsh-terraform"
 zplug "blimmer/zsh-aws-vault"
@@ -80,12 +80,12 @@ alias jcli="java -jar ~/Downloads/jenkins-cli.jar -s http://localhost:8080"
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
 alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -setairportnetwork en0 'NBCU_Corp'"
 
-eval $(thefuck --alias)
+test -e "thefuck" && eval $(thefuck --alias)
 
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
 export PATH=$HOME/go/bin:$PATH
-export PATH="${BREWBASE}/sbin:$PATH"
+export PATH="${BREWBASE}/bin:${BREWBASE}/sbin:$PATH"
 export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
 test -e "jx" && source <(jx completion zsh)
 fpath=($fpath ~/.zsh/completion)
@@ -95,8 +95,11 @@ fpath=($fpath ~/.zsh/completion)
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="/home/stevekoppelman/.linuxbrew/bin:$PATH"
 #export KUBECONFIG=~/.kube/config:~/.kube/config.dev-eks-cluster:~/.kube/config.dev-rancher:~/.kube/config.dev-nbcnewstools
-kubeconfigs=(~/.kube/config*)
-export KUBECONFIG=$(echo $kubeconfigs | tr ' ' ':')
+
+if [ -f ~/.kube ]; then
+    kubeconfigs=(~/.kube/config*)
+    export KUBECONFIG=$(echo $kubeconfigs | tr ' ' ':')
+fi
 
 command -v "eksctl" > /dev/null && source <(eksctl completion zsh)
 command -v "lsd" > /dev/null && alias ls='lsd'

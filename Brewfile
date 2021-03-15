@@ -24,7 +24,7 @@ cask "font-monofur-nerd-font"
 cask "font-hasklug-nerd-font"
 cask "font-heavy-data-nerd-font"
 
-brew "mas"
+# brew "mas"
 
 brew "helm"
 brew "awscli"
@@ -47,6 +47,7 @@ brew "rancher-cli"
 brew "nvm"
 brew "zsh-completion"
 brew "zsh-syntax-highlighting"
+brew "zsh-autosuggestions"
 brew "zplug"
 
 # mas "XCode"
