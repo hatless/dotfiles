@@ -1,6 +1,9 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 #!/usr/bin/env zsh
 
 ZSH_DISABLE_COMPFIX="true"
+OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -16,6 +19,13 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# pyenv
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
 if [[ $(uname -a | grep Darwin) ]]; then
     export BREWBASE=/usr/local
     source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -23,64 +33,60 @@ else
     export BREWBASE=~/.linuxbrew
 fi
 
+# load zgenom
+
+test -e "${HOME}/.zgenom/zgenom.zsh" || \
+    git clone https://github.com/jandamm/zgenom.git "${HOME}/.zgenom"
+
+source "${HOME}/.zgenom/zgenom.zsh"
+
+# Check for plugin and zgenom updates every 7 days
+# This does not increase the startup time.
+zgenom autoupdate
+
 source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source ${BREWBASE}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath=(${BREWBASE}/share/zsh-completions $fpath)
 
-export ZPLUG_HOME=${BREWBASE}/opt/zplug
-source $ZPLUG_HOME/init.zsh
+# if the init script doesn't exist
+if ! zgenom saved; then
+    echo "Creating a zgenom save"
+    zgenom load 'chrissicool/zsh-256color'
+    zgenom load 'qianxinfeng/zsh-vscode'
+    zgenom load 'skx/sysadmin-util'
+    zgenom load 'tysonwolker/iterm-tab-colors'
+    zgenom load 'ytet5uy4/pctl'
+    zgenom load 'zpm-zsh/autoenv'
+    zgenom load "zpm-zsh/colors"
+    zgenom load "zpm-zsh/colorize"
+    zgenom load "reegnz/jq-zsh-plugin"
+    zgenom load "Dbz/zsh-kubernetes"
+    zgenom load "djui/alias-tips"
+    zgenom load "lukechilds/zsh-nvm"
+    zgenom load "pbar1/zsh-terraform"
+    zgenom load "blimmer/zsh-aws-vault"
 
-zplug 'chrissicool/zsh-256color', from:github
-zplug 'qianxinfeng/zsh-vscode', from:github
-zplug 'skx/sysadmin-util', from:github
-zplug 'tysonwolker/iterm-tab-colors', from:github
-zplug 'ytet5uy4/pctl'
-zplug 'zpm-zsh/autoenv', from:github
-zplug "zpm-zsh/colors"
-zplug "zpm-zsh/colorize"
-zplug "reegnz/jq-zsh-plugin"
-zplug "~/workspace/spaceship-prompt", use:spaceship.zsh, from:local, as:theme
-zplug "Dbz/zsh-kubernetes", from:github
-zplug "djui/alias-tips"
-zplug "gerges/oh-my-zsh-jira-plus", from:github
-zplug "laggardkernel/zsh-thefuck", from:github
-zplug "lukechilds/zsh-nvm"
-zplug "pbar1/zsh-terraform"
-zplug "blimmer/zsh-aws-vault"
-zplug "plugins/aws", from:oh-my-zsh
-zplug "plugins/brew", from:oh-my-zsh
-zplug "plugins/dircycle", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/jira", from:oh-my-zsh
-zplug "plugins/vagrant", from:oh-my-zsh
-zplug "plugins/wd", from:oh-my-zsh
-zplug "unixorn/tumult.plugin.zsh", from:github
+    zgenom ohmyzsh
+    zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo
-        zplug install
-    fi
+    zgenom ohmyzsh "plugins/aws"
+    zgenom ohmyzsh "plugins/brew"
+    zgenom ohmyzsh "plugins/dircycle"
+    zgenom ohmyzsh "plugins/docker"
+    zgenom ohmyzsh "plugins/git"
+    zgenom ohmyzsh "plugins/wd"
+    zgenom save
 fi
 
-# Then, source plugins and add commands to $PATH
-zplug load
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export NVM_DIR="$HOME/.nvm"
 
-alias jcli="java -jar ~/Downloads/jenkins-cli.jar -s http://localhost:8080"
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
 alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -setairportnetwork en0 'NBCU_Corp'"
-
-eval $(thefuck --alias)
+alias jcli="java -jar ~/jenkins-cli.jar -webSocket -auth @${HOME}/.jcli"
 
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
@@ -94,23 +100,20 @@ fpath=($fpath ~/.zsh/completion)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="/home/stevekoppelman/.linuxbrew/bin:$PATH"
-#export KUBECONFIG=~/.kube/config:~/.kube/config.dev-eks-cluster:~/.kube/config.dev-rancher:~/.kube/config.dev-nbcnewstools
-kubeconfigs=(~/.kube/config*)
-export KUBECONFIG=$(echo $kubeconfigs | tr ' ' ':')
+
+export VAULT_ADDR="https://vault.nbcnewstools.net/"
 
 command -v "eksctl" > /dev/null && source <(eksctl completion zsh)
 command -v "lsd" > /dev/null && alias ls='lsd'
 command -v "svcat" > /dev/null && source <(svcat completion zsh)
 command -v "helm" > /dev/null && source <(helm completion zsh)
+command -v "goenv" > /dev/null && eval "$(goenv init -)"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc'; fi
-
-# pyenv
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-eval "$(pyenv init -)"
 
 set -k
 # To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
@@ -130,3 +133,13 @@ complete -F _akamai_cli_bash_autocomplete akamai
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/a206588409/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

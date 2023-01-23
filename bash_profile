@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/bash_profile.pre.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.pre.bash"
 # Add `~/bin` to the `$PATH`
 export PATH="/usr/local/bin:/usr/local/sbin:/opt/cisco/anyconnect/bin:$HOME/bin:$PATH"
 
@@ -45,3 +47,6 @@ source $(brew --prefix nvm)/nvm.sh
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/SteveKoppleman/.sdkman"
 [[ -s "/Users/SteveKoppleman/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/SteveKoppleman/.sdkman/bin/sdkman-init.sh"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/bash_profile.post.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.post.bash"
