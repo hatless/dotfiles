@@ -15,9 +15,12 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename '/Users/a206588409/.zshrc'
 
-autoload -Uz compinit
-compinit
+# autoload -Uz compinit
+# compinit
 # End of lines added by compinstall
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
 
 # pyenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
@@ -66,21 +69,17 @@ if ! zgenom saved; then
     zgenom load "lukechilds/zsh-nvm"
     zgenom load "pbar1/zsh-terraform"
     zgenom load "blimmer/zsh-aws-vault"
+    zgenom load "mdumitru/git-aliases"
+    zgenom load "apachler/zsh-aws"
 
-    zgenom ohmyzsh
-    zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
-
-    zgenom ohmyzsh "plugins/aws"
-    zgenom ohmyzsh "plugins/brew"
-    zgenom ohmyzsh "plugins/dircycle"
-    zgenom ohmyzsh "plugins/docker"
-    zgenom ohmyzsh "plugins/git"
-    zgenom ohmyzsh "plugins/wd"
+    # zgenom ohmyzsh "plugins/aws"
+    # zgenom ohmyzsh "plugins/brew"
+    # zgenom ohmyzsh "plugins/dircycle"
+    # zgenom ohmyzsh "plugins/docker"
+    # zgenom ohmyzsh "plugins/git"
+    # zgenom ohmyzsh "plugins/wd"
     zgenom save
 fi
-
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export NVM_DIR="$HOME/.nvm"
 
@@ -108,6 +107,14 @@ command -v "lsd" > /dev/null && alias ls='lsd'
 command -v "svcat" > /dev/null && source <(svcat completion zsh)
 command -v "helm" > /dev/null && source <(helm completion zsh)
 command -v "goenv" > /dev/null && eval "$(goenv init -)"
+command -v "starship" > /dev/null && eval "$(starship init zsh)"
+
+
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc'; fi
@@ -135,7 +142,6 @@ complete -F _akamai_cli_bash_autocomplete akamai
 
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
-
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/a206588409/.rd/bin:$PATH"
