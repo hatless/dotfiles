@@ -1,6 +1,7 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 #!/usr/bin/env zsh
+
+# Fig pre block. Keep at the top of this file.
+# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
 ZSH_DISABLE_COMPFIX="true"
 OP_BIOMETRIC_UNLOCK_ENABLED=true
@@ -18,7 +19,7 @@ zstyle :compinstall filename '/Users/a206588409/.zshrc'
 # autoload -Uz compinit
 # compinit
 # End of lines added by compinstall
-autoload -U +X bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 
 
@@ -38,7 +39,7 @@ fi
 
 # load zgenom
 
-test -e "${HOME}/.zgenom/zgenom.zsh" || \
+test -f "${HOME}/.zgenom/zgenom.zsh" || \
     git clone https://github.com/jandamm/zgenom.git "${HOME}/.zgenom"
 
 source "${HOME}/.zgenom/zgenom.zsh"
@@ -70,7 +71,6 @@ if ! zgenom saved; then
     zgenom load "pbar1/zsh-terraform"
     zgenom load "blimmer/zsh-aws-vault"
     zgenom load "mdumitru/git-aliases"
-    zgenom load "apachler/zsh-aws"
 
     # zgenom ohmyzsh "plugins/aws"
     # zgenom ohmyzsh "plugins/brew"
@@ -86,13 +86,13 @@ export NVM_DIR="$HOME/.nvm"
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
 alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -setairportnetwork en0 'NBCU_Corp'"
 alias jcli="java -jar ~/jenkins-cli.jar -webSocket -auth @${HOME}/.jcli"
+alias pj='npx projen'
 
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
 #export https_proxy="http://proxy.anbcge.nbcu.com:80"
 export PATH=$HOME/go/bin:$PATH
 export PATH="${BREWBASE}/sbin:$PATH"
 export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
-test -e "jx" && source <(jx completion zsh)
 fpath=($fpath ~/.zsh/completion)
 
 [ -f ~/.kube/ranchercli ] && export RANCHER_TOKEN=$(cat ~/.kube/ranchercli)
@@ -110,11 +110,11 @@ command -v "goenv" > /dev/null && eval "$(goenv init -)"
 command -v "starship" > /dev/null && eval "$(starship init zsh)"
 
 
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-    ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
-fi
+# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+#     ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+#     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#     ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+# fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc'; fi
@@ -125,16 +125,16 @@ if [ -f '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc' ]; then . '/
 set -k
 # To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
 # We recommend adding this to your .zshrc file
-_akamai_cli_bash_autocomplete() {
-    local cur opts base
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    opts=$( ${COMP_WORDS[@]:0:$COMP_CWORD} --generate-auto-complete )
-    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-    return 0
-}
+# _akamai_cli_bash_autocomplete() {
+#     local cur opts base
+#     COMPREPLY=()
+#     cur="${COMP_WORDS[COMP_CWORD]}"
+#     opts=$( ${COMP_WORDS[@]:0:$COMP_CWORD} --generate-auto-complete )
+#     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+#     return 0
+# }
 
-complete -F _akamai_cli_bash_autocomplete akamai
+# complete -F _akamai_cli_bash_autocomplete akamai
 
 # tabtab source for packages
 # uninstall by removing these lines
@@ -143,9 +143,10 @@ complete -F _akamai_cli_bash_autocomplete akamai
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 
+
+# # Fig post block. Keep at the bottom of this file.
+# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/a206588409/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
