@@ -14,7 +14,7 @@ setopt appendhistory autocd beep extendedglob nomatch notify
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/a206588409/.zshrc'
+zstyle :compinstall filename "${HOME}/.zshrc"
 
 # autoload -Uz compinit
 # compinit
@@ -25,14 +25,15 @@ autoload -U +X compinit && compinit
 
 # pyenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
+if which pyenv > /dev/null; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+fi
 
 if [[ $(uname -a | grep Darwin) ]]; then
     export BREWBASE=/usr/local
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
 else
     export BREWBASE=~/.linuxbrew
 fi
@@ -47,8 +48,6 @@ source "${HOME}/.zgenom/zgenom.zsh"
 # Check for plugin and zgenom updates every 7 days
 # This does not increase the startup time.
 zgenom autoupdate
-
-source ${BREWBASE}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source ${BREWBASE}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath=(${BREWBASE}/share/zsh-completions $fpath)
@@ -107,22 +106,25 @@ command -v "lsd" > /dev/null && alias ls='lsd'
 command -v "svcat" > /dev/null && source <(svcat completion zsh)
 command -v "helm" > /dev/null && source <(helm completion zsh)
 command -v "goenv" > /dev/null && eval "$(goenv init -)"
-command -v "starship" > /dev/null && eval "$(starship init zsh)"
+command -v "sdkman" > /dev/null && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 
-# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-#     ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-#     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-#     ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
-# fi
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
+    command -v "starship" > /dev/null && eval "$(starship init zsh)"
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+    ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
+fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/SteveKoppleman/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
 
 set -k
+eval "$(/usr/local/bin/akamai --zsh)"
+
 # To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
 # We recommend adding this to your .zshrc file
 # _akamai_cli_bash_autocomplete() {
