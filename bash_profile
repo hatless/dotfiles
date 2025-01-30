@@ -1,7 +1,7 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/bash_profile.pre.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.pre.bash"
 # Add `~/bin` to the `$PATH`
-export PATH="/usr/local/bin:/usr/local/sbin:/opt/cisco/anyconnect/bin:$HOME/bin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/opt/cisco/anyconnect/bin:$HOME/bin:$PATH"
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -51,6 +51,8 @@ export SDKMAN_DIR="/Users/SteveKoppleman/.sdkman"
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/bash_profile.post.bash" ]] && builtin source "$HOME/.fig/shell/bash_profile.post.bash"
 
+complete -C /opt/homebrew/Cellar/tfenv/3.0.0/versions/1.4.6/terraform terraform
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/a206588409/.rd/bin:$PATH"
+export PATH="/Users/206588409/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

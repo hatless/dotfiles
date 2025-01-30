@@ -7,7 +7,7 @@ ZSH_DISABLE_COMPFIX="true"
 OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE=$HOME/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory autocd beep extendedglob nomatch notify
@@ -16,10 +16,6 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename "${HOME}/.zshrc"
 
-# autoload -Uz compinit
-# compinit
-# End of lines added by compinstall
-# autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 
 
@@ -32,10 +28,14 @@ if which pyenv > /dev/null; then
     eval "$(pyenv init -)"
 fi
 
+export PHPBREW_SET_PROMPT=1
+export PHPBREW_RC_ENABLE=1
+[[ -f ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
 if [[ $(uname -a | grep Darwin) ]]; then
-    export BREWBASE=/usr/local
+    export BREWBASE=/opt/homebrew
 else
-    export BREWBASE=~/.linuxbrew
+    export BREWBASE=$HOME/.linuxbrew
 fi
 
 # load zgenom
@@ -49,7 +49,7 @@ source "${HOME}/.zgenom/zgenom.zsh"
 # This does not increase the startup time.
 zgenom autoupdate
 
-source ${BREWBASE}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ${BREWBASE}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath=(${BREWBASE}/share/zsh-completions $fpath)
 
 # if the init script doesn't exist
@@ -84,7 +84,7 @@ export NVM_DIR="$HOME/.nvm"
 
 alias byod="networksetup -switchtolocation 'NBCU Non-Proxy' && networksetup -setairportnetwork en0 'NBCU_BYOD'"
 alias corp="networksetup -switchtolocation 'NBCU AutoProxy' && networksetup -setairportnetwork en0 'NBCU_Corp'"
-alias jcli="java -jar ~/jenkins-cli.jar -webSocket -auth @${HOME}/.jcli"
+alias jcli="java -jar $HOME/jenkins-cli.jar -webSocket -auth @${HOME}/.jcli"
 alias pj='npx projen'
 
 #export http_proxy="http://proxy.anbcge.nbcu.com:80"
@@ -92,12 +92,12 @@ alias pj='npx projen'
 export PATH=$HOME/go/bin:$PATH
 export PATH="${BREWBASE}/sbin:$PATH"
 export PCTL_PROXY_ADDRESS=proxy.inbcu.com PCTL_PROXY_PORT=80
-fpath=($fpath ~/.zsh/completion)
+fpath=($fpath $HOME/.zsh/completion)
 
-[ -f ~/.kube/ranchercli ] && export RANCHER_TOKEN=$(cat ~/.kube/ranchercli)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $HOME/.kube/ranchercli ] && export RANCHER_TOKEN=$(cat ~/.kube/ranchercli)
+[ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export PATH="/home/stevekoppelman/.linuxbrew/bin:$PATH"
+export PATH="$HOME/.linuxbrew/bin:$PATH"
 
 export VAULT_ADDR="https://vault.nbcnewstools.net/"
 
@@ -111,36 +111,23 @@ command -v "sdkman" > /dev/null && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     ##### WHAT YOU WANT TO DISABLE FOR WARP - BELOW
-    command -v "starship" > /dev/null && eval "$(starship init zsh)"
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+    test -e "$HOME/.iterm2_shell_integration.zsh" && source "~/.iterm2_shell_integration.zsh"
     ##### WHAT YOU WANT TO DISABLE FOR WARP - ABOVE
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "~/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "~/google-cloud-sdk/completion.zsh.inc"; fi
 
-set -k
-eval "$(/usr/local/bin/akamai --zsh)"
+command -v "akamai" > /dev/null && eval "$(akamai --zsh)"
 
 # To enable zsh auto-completion, run: eval "$(/usr/local/bin/akamai --zsh)"
-# We recommend adding this to your .zshrc file
-# _akamai_cli_bash_autocomplete() {
-#     local cur opts base
-#     COMPREPLY=()
-#     cur="${COMP_WORDS[COMP_CWORD]}"
-#     opts=$( ${COMP_WORDS[@]:0:$COMP_CWORD} --generate-auto-complete )
-#     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-#     return 0
-# }
-
-# complete -F _akamai_cli_bash_autocomplete akamai
 
 # tabtab source for packages
 # uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+[[ -f $HOME/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
@@ -149,6 +136,24 @@ export PATH="$PATH:$GOPATH/bin"
 # # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
+export OP_BIOMETRIC_UNLOCK_ENABLED=true
+
+export PATH="/opt/homebrew/opt/php@8.1/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.1/sbin:$PATH"
+
+command -v "starship" > /dev/null && eval "$(starship init zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias bashly='docker run --rm -it --user $(id -u):$(id -g) --volume "$PWD:/app" dannyben/bashly'
+export PATH="${BREWBASE}/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/Cellar/tfenv/3.0.0/versions/1.4.6/terraform terraform
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/a206588409/.rd/bin:$PATH"
+export PATH="/Users/206588409/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

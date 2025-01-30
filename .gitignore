@@ -1,2 +1,5 @@
 vim/plugged
 .vscode/
+.DS_Store
+*.swp
+
